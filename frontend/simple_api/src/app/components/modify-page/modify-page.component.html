@@ -1,0 +1,51 @@
+<div style="margin-left:15vw; width:70vw;">
+    <div class = "container" style="width:70vw;">
+        <div class="row">
+            <div class="col-6" style = "width:30vw;">
+                <div  style = "width:30vw; height:50vh;"
+                    [ngStyle]="{'background-image': 'url(' + selected_img + ')', 'background-size': 'cover', 'background-position': 'center'}">
+                </div>
+            </div>
+            <div class="col-6" style = "width:30vw; margin-left: 5vw;">
+                <div class="row">
+                    <div class="col-3">
+                        <b><i>id:</i></b>
+                    </div>
+                    <div class="col-3">
+                        {{cat.id}}
+                    </div>
+                    <div class="col-3"></div>
+                    <div class="col-3"></div>
+                </div>
+                <div class="row" style="margin-top:2vh;">
+                    <div class="col-3">
+                        <b><i>name:</i></b>
+                    </div>
+                    <div class="col-3">
+                        {{cat.name}}
+                    </div>
+                    <div class="col-3">
+                        <input [(ngModel)]="new_name" style="width: 6vw;"/>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn btn-warning" (click)="changeName()" style="margin-left:2vw; width: 8vw;">Change Name!</button>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:2vh;">
+                    <div class="col-3">
+                        <b><i>weight:</i></b>
+                    </div>
+                    <div class="col-3">
+                        {{cat.weight}}
+                    </div>
+                    <div class="col-3">
+                        <input [(ngModel)]="new_weight" style="width: 6vw;"/>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn btn-warning" (click)="changeWeight()" style="margin-left:2vw; width: 8vw;">Change Weight!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

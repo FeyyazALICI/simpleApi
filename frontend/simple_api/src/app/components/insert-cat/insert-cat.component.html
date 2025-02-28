@@ -1,0 +1,23 @@
+<div style = "margin-left:15vw; width:70vw;">
+    <div class="row" style="margin-top:2vh;">
+        <div class="col-3">
+            <b><i>name:</i></b>
+        </div>
+        <div class="col-3">
+            <input [(ngModel)]="name" style="width: 10vw;"/>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:2vh;">
+        <div class="col-3">
+            <b><i>weight:</i></b>
+        </div>
+        <div class="col-3">
+            <input [(ngModel)]="weight" style="width: 10vw;"/>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:2vh;">
+        <button type="button" class="btn btn-success" (click)="insertCat()" style="margin-left:2vw; width: 8vw;">Change Name!</button>
+    </div>
+</div>

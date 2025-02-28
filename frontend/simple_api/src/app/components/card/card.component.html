@@ -1,0 +1,22 @@
+<div style="width:10vw; height: 30vh;">
+    <div class="row" style="width:10vw; height: 15vh; border: solid; overflow: hidden;" 
+         [ngStyle]="{'background-image': 'url(' + selected_img(cat) + ')', 'background-size': 'cover', 'background-position': 'center'}">
+    </div>
+    <div class="row" style="width:10vw; height: 15vh; border: solid;">
+        <div class="container">
+            <div class="row">
+                <div class="col-6"><b><i>Name:</i></b></div>
+                <div class="col-6">{{ cat.name }}</div>  <!-- ✅ Display name -->
+            </div>
+            <div class="row">
+                <div class="col-6"><b><i>Weight:</i></b></div>
+                <div class="col-6">{{ cat.weight }}</div>  <!-- ✅ Display weight -->
+            </div>
+
+            <div class="row">
+                <div class="col-6"><button type="button" class="btn btn-success" (click)="modify(cat)">Modify</button></div>
+                <div class="col-6"><button type="button" class="btn btn-danger" (click)="delete(cat)">Delete</button></div>
+            </div>
+        </div>
+    </div>
+</div>

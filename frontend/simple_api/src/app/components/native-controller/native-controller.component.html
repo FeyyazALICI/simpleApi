@@ -1,0 +1,15 @@
+<div style="width:80vw; margin-left: 10vw;" *ngIf="cat_list.length > 0; else loading">
+    <h2 style="margin-left: 20vw;">Cat List - By End Point Using Native sql</h2>
+    <div class="container" style="width:80vw;">
+        <div class="row">
+            <div class="col" style="margin-left: 2vw; margin-top: 2vh;" *ngFor="let cat of cat_list">
+                <app-card [cat]="cat"></app-card>  <!-- ✅ Pass cat object -->
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-success" (click)="inserCat()" style="margin-top:5vh; margin-left: 30vw;">Add New Cat</button>
+</div>
+
+<ng-template #loading>
+    <p>Loading cats...</p>
+</ng-template>

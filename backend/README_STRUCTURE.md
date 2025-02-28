@@ -1,0 +1,53 @@
+# STRUCTURE
+/common
+    /errorMessage
+        ErrorMessageDerived.java
+    /responseMessage
+        HttpHeaderCreator.java
+
+/components
+    /api
+        /apiInterface
+            ControllerInterface.java
+        /controller
+            /jpaController
+                JpaController.java
+            /nativeController
+                NativeController.java
+    /business
+        /dto
+            CatDTO.java
+            SingleAttrDTO.java
+        /dtoMapper
+            /jpaMapper
+                CatMapper.java
+            /nativeMapper
+                CatNativeMapper.java
+                CatNativeMapper2.java
+        /interface
+            JpaServiceInterface.java
+            NativeServiceInterface.java
+        /service
+            /excelService
+                ExcelService.java
+            /jpaService
+                MainServiceJpa.java
+            /nativeService
+                NativeService.java
+    /dao
+        /entity
+            /jpaEntity
+                Cat.java
+            /nativeEntity
+                CatNative.java
+        /repository
+            /jpaRepository
+                CatRepoJpa.java
+            /nativeRepository
+                CatNativeRepository.java
+
+/config
+    CorsConfig.java
+    SecurityConfiguration.java
+    SwaggerConfig.java
+
