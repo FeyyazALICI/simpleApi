@@ -4,11 +4,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.simple_api.backend.components.business.dto.CatDTO;
+import com.simple_api.backend.components.business.dto.CatWithPriceDTO;
 import com.simple_api.backend.components.dao.entity.nativeEntity.CatNative;
 
 public interface NativeServiceInterface {
     
     List<CatDTO> getAllCats() throws Exception; 
+    List<CatWithPriceDTO> getAllCatWithPrice() throws Exception;
+
     CatNative getCatById( Long id ) throws Exception;
 
     boolean insertCat( CatNative catNative ) throws Exception;

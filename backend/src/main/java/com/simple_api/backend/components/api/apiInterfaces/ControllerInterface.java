@@ -11,6 +11,8 @@ import jakarta.validation.Valid;
 
 public interface ControllerInterface {
     ResponseEntity getAllCats(   HttpServletRequest request   );
+    ResponseEntity getAllCatWithPrice(   HttpServletRequest request   );
+
     ResponseEntity getCatById(   HttpServletRequest request, @Valid @RequestBody SingleAttrDTO singleAttrDTO   );
     ResponseEntity insertCat(   HttpServletRequest request, @Valid @RequestBody CatDTO catDTO   );
     ResponseEntity updateCat(   HttpServletRequest request, @Valid @RequestBody CatDTO catDTO   );

@@ -4,14 +4,15 @@ import { JpaControllerComponent } from './components/jpa-controller/jpa-controll
 import { NativeControllerComponent } from './components/native-controller/native-controller.component';
 import { ModifyPageComponent } from './components/modify-page/modify-page.component';
 import { InsertCatComponent } from './components/insert-cat/insert-cat.component';
-
+import { ViewcontrollerComponent } from './components/viewcontroller/viewcontroller.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent},
     { path: 'jpa', component: JpaControllerComponent},
     { path: 'native', component: NativeControllerComponent},
     { path: 'modify', component: ModifyPageComponent},
-    { path: 'insert-cat', component: InsertCatComponent}
+    { path: 'insert-cat', component: InsertCatComponent},
+    { path: 'view', component: ViewcontrollerComponent}
 ];
 
 

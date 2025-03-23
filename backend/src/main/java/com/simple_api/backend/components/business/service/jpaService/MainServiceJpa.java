@@ -5,14 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.simple_api.backend.components.business.dto.CatDTO;
+import com.simple_api.backend.components.business.dto.CatWithPriceDTO;
 import com.simple_api.backend.components.business.dtoMapper.jpaMapper.CatMapper;
+import com.simple_api.backend.components.business.dtoMapper.jpaMapper.CatWithPriceMapper;
 import com.simple_api.backend.components.business.interfaces.JpaServiceInterface;
 import com.simple_api.backend.components.dao.entity.jpaEntity.Cat;
+import com.simple_api.backend.components.dao.entity.jpaEntity.CatWithPrice;
 import com.simple_api.backend.components.dao.repository.jpaRepository.CatRepoJpa;
+import com.simple_api.backend.components.dao.repository.jpaRepository.CatWithPriceRepoJpa;
 
 import jakarta.transaction.Transactional;
 
@@ -20,12 +23,14 @@ import jakarta.transaction.Transactional;
 public class MainServiceJpa implements JpaServiceInterface{
     
     private final CatRepoJpa catRepoJpa;
+    private final CatWithPriceRepoJpa catWithPriceRepoJpa;
 
-    @Autowired
     public MainServiceJpa(
-        CatRepoJpa catRepoJpa
+        CatRepoJpa catRepoJpa,
+        CatWithPriceRepoJpa catWithPriceRepoJpa
     ){
-        this.catRepoJpa = catRepoJpa;
+        this.catRepoJpa     = catRepoJpa;
+        this.catWithPriceRepoJpa   = catWithPriceRepoJpa;
     }
 
     @Override
@@ -45,6 +50,27 @@ public class MainServiceJpa implements JpaServiceInterface{
             throw e;
         }
     }
+
+    // gettting view
+    @Override
+    public List<CatWithPriceDTO> getAllCatWithPrice(){
+        try{
+            CatWithPriceMapper catWithPriceMapper = new CatWithPriceMapper();
+            List<CatWithPrice> data = this.catWithPriceRepoJpa.findAll();
+            List<CatWithPriceDTO> dataDTO = new ArrayList<>();
+            for(CatWithPrice catWithPrice: data){
+                CatWithPriceDTO catWithPriceDTO = new CatWithPriceDTO();
+                catWithPriceDTO = catWithPriceMapper.entityToDTO(catWithPrice);
+                dataDTO.add(catWithPriceDTO);
+            }
+            return dataDTO;
+        }catch(Exception e){
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    
 
     @Override
     public Cat getCatById( Long id ){

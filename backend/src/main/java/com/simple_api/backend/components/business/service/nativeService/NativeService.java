@@ -4,26 +4,31 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.simple_api.backend.components.business.dto.CatDTO;
+import com.simple_api.backend.components.business.dto.CatWithPriceDTO;
 import com.simple_api.backend.components.business.dtoMapper.nativeMapper.CatNativeMapper2;
+import com.simple_api.backend.components.business.dtoMapper.nativeMapper.CatWithPriceNativeMapper2;
 import com.simple_api.backend.components.business.interfaces.NativeServiceInterface;
 import com.simple_api.backend.components.dao.entity.nativeEntity.CatNative;
+import com.simple_api.backend.components.dao.entity.nativeEntity.CatWithPriceNative;
 import com.simple_api.backend.components.dao.repository.nativeRepository.CatNativeRepository;
+import com.simple_api.backend.components.dao.repository.nativeRepository.CatWithPriceRepoNative;
 
 @Service
 public class NativeService implements NativeServiceInterface{
     
 
     private final CatNativeRepository catNativeRepository;
+    private final CatWithPriceRepoNative catWithPriceRepoNative;
 
-    @Autowired
     public NativeService(
-        CatNativeRepository catNativeRepository
+        CatNativeRepository catNativeRepository,
+        CatWithPriceRepoNative catWithPriceRepoNative
     ){
-        this.catNativeRepository = catNativeRepository;
+        this.catNativeRepository        = catNativeRepository;
+        this.catWithPriceRepoNative     = catWithPriceRepoNative;
     }
 
     @Override
@@ -36,6 +41,25 @@ public class NativeService implements NativeServiceInterface{
             for(CatNative catNative: dataStage0){
                 CatDTO catDTO = catNativeMapper2.catNativeToCatDTOMapper(catNative);
                 data.add(catDTO);
+            }
+            return data;
+        }catch(Exception e){
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    // getting view
+    @Override
+    public List<CatWithPriceDTO> getAllCatWithPrice() throws Exception{
+        try{
+            CatWithPriceNativeMapper2 catWithPriceNativeMapper2 = new CatWithPriceNativeMapper2();
+
+            List<CatWithPriceNative> dataStage0 = this.catWithPriceRepoNative.getAllCatWithPrice();
+            List<CatWithPriceDTO> data = new ArrayList<>();
+            for(CatWithPriceNative catWithPriceNative: dataStage0){
+                CatWithPriceDTO catWithPriceDTO = catWithPriceNativeMapper2.nativeToDTO(catWithPriceNative);
+                data.add(catWithPriceDTO);
             }
             return data;
         }catch(Exception e){

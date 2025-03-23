@@ -6,26 +6,31 @@ import jakarta.persistence.Column;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @Data
-public class CatNative {
+@NoArgsConstructor
+public class CatWithPriceNative {
 
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "cat_name")
     private String name;
 
     @Column(name = "weight")
     private BigDecimal weight;
+
+    @Column(name = "price")
+    private BigDecimal price;
     
-    public CatNative(
+    public CatWithPriceNative(
         Long id,
         String name,
-        BigDecimal weight
+        BigDecimal weight,
+        BigDecimal price
     ){
-        this.id     = id;
-        this.name   = name;
-        this.weight = weight;
+        this.id         = id;
+        this.name       = name;
+        this.weight     = weight;
+        this.price      = price;
     }
 }

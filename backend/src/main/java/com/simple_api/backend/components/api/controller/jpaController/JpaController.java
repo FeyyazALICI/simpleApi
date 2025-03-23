@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +19,13 @@ import com.simple_api.backend.common.errorMessage.ErrorMessageDerived;
 import com.simple_api.backend.common.responseEntityReturns.HttpHeaderCreator;
 import com.simple_api.backend.components.api.apiInterfaces.ControllerInterface;
 import com.simple_api.backend.components.business.dto.CatDTO;
+import com.simple_api.backend.components.business.dto.CatWithPriceDTO;
 import com.simple_api.backend.components.business.dto.SingleAttrDTO;
 import com.simple_api.backend.components.business.dtoMapper.jpaMapper.CatMapper;
 import com.simple_api.backend.components.business.service.excelService.ExcelService;
 import com.simple_api.backend.components.business.service.jpaService.MainServiceJpa;
 import com.simple_api.backend.components.dao.entity.jpaEntity.Cat;
+import com.simple_api.backend.components.dao.entity.jpaEntity.CatWithPrice;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -38,7 +39,12 @@ public class JpaController implements ControllerInterface{
     private final HttpHeaderCreator headerCreator;
     private final ExcelService excelService;
 
-    @Autowired
+    /*  !!! no need to add @Autowired above the constructors because !!!
+        - function: The @Autowired annotation tells Spring to automatically inject an instance of 
+        CatRepoJpa (your repository interface) when creating an instance of MainServiceJpa.
+        - is it required: No, it's optional in this case. Since Spring Boot 2.6+, 
+        if a class has only one constructor, Spring automatically injects dependencies without needing @Autowired.
+    */
     public JpaController(
         MainServiceJpa serviceJpa,
         HttpHeaderCreator headerCreator,
@@ -67,6 +73,26 @@ public class JpaController implements ControllerInterface{
             return new ResponseEntity<>(null, responseHeader, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
+    @GetMapping("/view")
+    public ResponseEntity getAllCatWithPrice(HttpServletRequest request){
+        String requestType = "GET";
+        try{
+            List<CatWithPriceDTO> data = serviceJpa.getAllCatWithPrice();
+            if(   data!=null   ){
+                HttpHeaders responseHeader = this.headerCreator.okResponseHeader(request, requestType);
+                return new ResponseEntity<>(data, responseHeader, HttpStatus.OK);
+            }else{
+                HttpHeaders responseHeader = this.headerCreator.notFoundResponseHeader(request, requestType);
+                return new ResponseEntity<>(null, responseHeader, HttpStatus.NOT_FOUND);
+            }
+        }catch(Exception e){
+            HttpHeaders responseHeader = this.headerCreator.internalServerErrorResponseHeader(request, requestType);
+            return new ResponseEntity<>(null, responseHeader, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
     @Override
     @PostMapping("/id")

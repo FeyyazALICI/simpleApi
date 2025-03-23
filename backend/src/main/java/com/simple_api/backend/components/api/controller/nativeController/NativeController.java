@@ -2,7 +2,6 @@ package com.simple_api.backend.components.api.controller.nativeController;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +12,7 @@ import com.simple_api.backend.common.errorMessage.ErrorMessageDerived;
 import com.simple_api.backend.common.responseEntityReturns.HttpHeaderCreator;
 import com.simple_api.backend.components.api.apiInterfaces.ControllerInterface;
 import com.simple_api.backend.components.business.dto.CatDTO;
+import com.simple_api.backend.components.business.dto.CatWithPriceDTO;
 import com.simple_api.backend.components.business.dto.SingleAttrDTO;
 import com.simple_api.backend.components.business.dtoMapper.nativeMapper.CatNativeMapper2;
 import com.simple_api.backend.components.business.service.excelService.ExcelService;
@@ -37,7 +37,6 @@ public class NativeController implements ControllerInterface{
     private final HttpHeaderCreator headerCreator;
     private final ExcelService excelService;
 
-    @Autowired
     public NativeController(
         NativeService nativeService,
         HttpHeaderCreator headerCreator,
@@ -66,6 +65,26 @@ public class NativeController implements ControllerInterface{
             return new ResponseEntity<>(null, responseHeader, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
+    @GetMapping("/view")
+    public ResponseEntity getAllCatWithPrice(HttpServletRequest request){
+        String requestType = "GET";
+        try{
+            List<CatWithPriceDTO> data = nativeService.getAllCatWithPrice();
+            if(   data!=null   ){
+                HttpHeaders responseHeader = this.headerCreator.okResponseHeader(request, requestType);
+                return new ResponseEntity<>(data, responseHeader, HttpStatus.OK);
+            }else{
+                HttpHeaders responseHeader = this.headerCreator.notFoundResponseHeader(request, requestType);
+                return new ResponseEntity<>(null, responseHeader, HttpStatus.NOT_FOUND);
+            }
+        }catch(Exception e){
+            HttpHeaders responseHeader = this.headerCreator.internalServerErrorResponseHeader(request, requestType);
+            return new ResponseEntity<>(null, responseHeader, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
     @Override
     @PostMapping("/id")

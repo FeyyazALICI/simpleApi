@@ -51,5 +51,14 @@ export class ApiServiceService {
     return this.http.get(this.apiUrl_all_catsNative);
   }
   //NATIVE -----------------------------------------------------------------------------------------------
+
+
+  //VIEW-JPA -----------------------------------------------------------------------------------------------
+  private apiUrl_view_jpa = 'http://localhost:9000/jpa/view';
+  //GET 
+  getViewJpa(): Observable<any> {
+    return this.http.get(this.apiUrl_view_jpa);
+  }
+  //NATIVE -----------------------------------------------------------------------------------------------
   
 }
