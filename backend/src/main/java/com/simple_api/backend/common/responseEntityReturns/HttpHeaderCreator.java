@@ -63,7 +63,7 @@ public class HttpHeaderCreator {
         String requestUrl = request.getRequestURL().toString();
 
         HttpHeaders responseHeader = new HttpHeaders();
-        responseHeader.put("STATUS_MESSAGE", Collections.singletonList("1")                   );
+        responseHeader.put("STATUS_MESSAGE", Collections.singletonList("0")                   );
         responseHeader.put("RECORD_DATE", Collections.singletonList(currentTimestampInString)   );
         responseHeader.put("HTTP_STATUS", Collections.singletonList(HttpStatus.CONFLICT.toString())   );
 
